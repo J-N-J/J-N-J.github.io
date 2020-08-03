@@ -22,9 +22,10 @@
   function step() {
       drawArcPart(current_a)
       current_a = current_a + 0.02
+      requestAnimationFrame(step)
   }
 
-  setInterval(step, 1000/60)
+  step()
   
 </script>
 
