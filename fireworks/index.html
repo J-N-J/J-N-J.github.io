@@ -15,10 +15,21 @@
       ctx.clearRect(0, 0, width, height)
   }
   
-  function drawArcPart(ctx, a) {
+  function drawArcPart(ctx, a, x, y) {
       ctx.beginPath()
-      ctx.arc(280, 280, 70, a, a + 0.2 * Math.PI)
+      ctx.arc(x, y, 70, a, a + 0.2 * Math.PI)
       ctx.stroke()
+  }
+
+  let current_a = 0
+
+  function drawScene(ctx) {
+      clearCtx(ctx)
+      for (let i = 100; i < 550; i+=60) {
+          drawArcPart(ctx, current_a, i, 280)
+          drawArcPart(ctx, current_a, i, 350)
+      }
+      current_a = current_a + 0.02
   }
 
   function newContext() {
@@ -33,23 +44,19 @@
 
   let seenctx = fireworks.getContext("2d")
 
-  let current_a = 0
-
-  let tmpctx = newContext()
+  let tmp = newContext()
 
   let _stop = false
 
   function step() {
       clearCtx(seenctx)
-      seenctx.drawImage(tmpctx.e, 0, 0)
+      seenctx.drawImage(tmp.e, 0, 0)
 
       if (! _stop) {
           requestAnimationFrame(step)
       }
 
-      clearCtx(tmpctx.ctx);
-      drawArcPart(tmpctx.ctx, current_a)
-      current_a = current_a + 0.02
+      drawScene(tmp.ctx)
   }
 
   function stop() {
