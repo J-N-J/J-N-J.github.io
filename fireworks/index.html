@@ -26,8 +26,9 @@
   function drawScene(ctx) {
       clearCtx(ctx)
       for (let i = 100; i < 550; i+=60) {
-          drawArcPart(ctx, current_a, i, 280)
-          drawArcPart(ctx, current_a, i, 350)
+          for (let j = 60; j < 500; j+= 60) {
+              drawArcPart(ctx, current_a, i, j+50)
+          }
       }
       current_a = current_a + 0.02
   }
