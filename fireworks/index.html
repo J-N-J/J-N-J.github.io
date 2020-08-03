@@ -25,22 +25,24 @@
       let ctx = e.getContext("2d")
       ctx.strokeStyle = "#ffffff"
       ctx.lineWidth = 2
-      return [e,ctx]
+      return {e: e, ctx: ctx}
   }
 
   let seenctx = fireworks.getContext("2d")
 
   let current_a = 0
 
+  let tmpctx = newContext()
+
   function step() {
-      let e_ctx = newContext()
-      let e = e_ctx[0]
-      let ctx = e_ctx[1]
-      drawArcPart(ctx, current_a)
       clearCtx(seenctx)
-      seenctx.drawImage(e, 0, 0)
-      current_a = current_a + 0.02
+      seenctx.drawImage(tmpctx.e, 0, 0)
+
       requestAnimationFrame(step)
+
+      tmpctx= newContext()
+      drawArcPart(tmpctx.ctx, current_a)
+      current_a = current_a + 0.02
   }
 
   step()
