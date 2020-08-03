@@ -8,6 +8,9 @@
   let width = fireworks.width
   let height = fireworks.height
 
+  let strokeStyle = "#ffffff"
+  let lineWidth = 2
+  
   function clearCtx(ctx) {
       ctx.clearRect(0, 0, width, height)
   }
@@ -23,8 +26,8 @@
       e.width = width
       e.height = height
       let ctx = e.getContext("2d")
-      ctx.strokeStyle = "#ffffff"
-      ctx.lineWidth = 2
+      ctx.strokeStyle = strokeStyle
+      ctx.lineWidth = lineWidth
       return {e: e, ctx: ctx}
   }
 
