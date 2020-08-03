@@ -4,23 +4,41 @@
 
 <p><center><canvas style="background-color: #48002f;" id="fireworks" width="600" height="600"></canvas></center></p>
 <script>
-  let c = document.getElementById("fireworks")
-  let ctx =c. getContext("2d")
+  let fireworks = document.getElementById("fireworks")
+  let width = fireworks.width
+  let height = fireworks.height
 
-  ctx.strokeStyle = "#ffffff"
-  ctx.lineWidth = 2
-
-  function drawArcPart(a) {
-      ctx.clearRect(0, 0, c.width, c.height)
+  function clearCtx(ctx) {
+      ctx.clearRect(0, 0, width, height)
+  }
+  
+  function drawArcPart(ctx, a) {
       ctx.beginPath()
       ctx.arc(280, 280, 70, a, a + 0.2 * Math.PI)
       ctx.stroke()
   }
 
+  function newContext() {
+      let e = document.createElement("canvas")
+      e.width = width
+      e.height = height
+      let ctx = e.getContext("2d")
+      ctx.strokeStyle = "#ffffff"
+      ctx.lineWidth = 2
+      return [e,ctx]
+  }
+
+  let seenctx = fireworks.getContext("2d")
+
   let current_a = 0
 
   function step() {
-      drawArcPart(current_a)
+      let e_ctx = newContext()
+      let e = e_ctx[0]
+      let ctx = e_ctx[1]
+      drawArcPart(ctx, current_a)
+      clearCtx(seenctx)
+      seenctx.drawImage(e, 0, 0)
       current_a = current_a + 0.02
       requestAnimationFrame(step)
   }
