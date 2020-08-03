@@ -43,7 +43,7 @@
 
       requestAnimationFrame(step)
 
-      tmpctx= newContext()
+      clearCtx(tmpctx.ctx);
       drawArcPart(tmpctx.ctx, current_a)
       current_a = current_a + 0.02
   }
