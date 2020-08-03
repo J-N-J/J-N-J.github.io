@@ -37,18 +37,29 @@
 
   let tmpctx = newContext()
 
+  let _stop = false
+
   function step() {
       clearCtx(seenctx)
       seenctx.drawImage(tmpctx.e, 0, 0)
 
-      requestAnimationFrame(step)
+      if (! _stop) {
+          requestAnimationFrame(step)
+      }
 
       clearCtx(tmpctx.ctx);
       drawArcPart(tmpctx.ctx, current_a)
       current_a = current_a + 0.02
   }
 
-  step()
+  function stop() {
+      _stop = true
+  }
+  function start() {
+      _stop = false
+      step()
+  }
+  start()
   
 </script>
 
