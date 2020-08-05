@@ -4,10 +4,9 @@
 </head>
 <p><center><font id="jnj" size=45> <b> J.N.J.</b></font></center></p>
 
-<p><center><canvas style="background-color: #48002f;" id="fireworks" width="600" height="600"></canvas></center></p>
+<p><center><canvas style="background-color: #230000;" id="fireworks" width="600" height="600"></canvas></center></p>
 <script>
 
-  let strokeStyle = "#ffffff"
   let lineWidth = 2
   
   function drawArcPart(c, a, x, y) {
@@ -18,18 +17,27 @@
 
   let current_a = 0
 
-  function drawScene(c) {
-      c.clear()
-      c.strokeStyle = strokeStyle
-      c.lineWidth = lineWidth
-      for (let i = 100; i < 550; i+=60) {
-          for (let j = 60; j < 500; j+= 60) {
+  function drawArcSet(c, offset_i, offset_j) {
+      for (let i = offset_i + 100; i < 550; i+=120) {
+          for (let j = offset_j + 40; j < 500; j+= 120) {
               drawArcPart(c, current_a, i, j+50)
           }
       }
-      current_a = current_a + 0.02
   }
 
+  function drawScene(c) {
+      c.clear()
+      current_a = current_a - 0.02
+      c.lineWidth = lineWidth
+      c.strokeStyle = "#b52424"
+      drawArcSet(c, 0, 0)
+      c.strokeStyle = "#123e45"
+      drawArcSet(c, 60, 0)
+      drawArcSet(c, 0, 60)
+      c.strokeStyle = "#b52424"
+      drawArcSet(c, 60, 60)
+  }
+  
   let an = new CanvasAnimation("fireworks", drawScene)
   an.start()
   
