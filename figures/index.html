@@ -25,13 +25,23 @@
       }
   }
 
+  function flicker(r,g,b, scale, i) {
+      let lum= 1 - ((1 + Math.sin(i)) * 0.5 * scale)
+      function f(x) {
+          return Math.floor(x*lum)
+      }
+      return rgb(f(r), f(g), f(b))
+  }
+  
   function red(c) {
       c.lineWidth = lineWidth * (Math.sin(current_a)+1)
-      c.strokeStyle = "#b52424"
+      c.strokeStyle = flicker(181, 36, 36, // "#b52424"
+                              0.4, 44.2*current_a)
   }
   function turquise(c) {
       c.lineWidth = lineWidth * (2-(Math.sin(current_a)+1))
-      c.strokeStyle = "#123e45"
+      c.strokeStyle = flicker(18, 62, 69, // "# 12 3e 45"
+                              0.3, 28.43*current_a)
   }
   
   function drawScene(c) {

@@ -57,3 +57,10 @@ class CanvasAnimation {
         this.step()
     }
 }
+
+
+// utils
+
+function rgb(r, g, b){
+  return "rgb("+r+","+g+","+b+")";
+}
