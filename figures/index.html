@@ -33,26 +33,27 @@
       return rgb(f(r), f(g), f(b))
   }
   
-  function red(c) {
+  function red(c, flickerspeed) {
       c.lineWidth = lineWidth * (Math.sin(current_a)+1)
       c.strokeStyle = flicker(181, 36, 36, // "#b52424"
-                              0.4, 44.2*current_a)
+                              0.4, flickerspeed*current_a)
   }
-  function turquise(c) {
+  function turquise(c, flickerspeed) {
       c.lineWidth = lineWidth * (2-(Math.sin(current_a)+1))
       c.strokeStyle = flicker(18, 62, 69, // "# 12 3e 45"
-                              0.3, 28.43*current_a)
+                              0.3, flickerspeed*current_a)
   }
   
   function drawScene(c) {
       c.clear()
       current_a = current_a - 0.02
-      red(c)
+      red(c, 44.2)
       drawArcSet(c, 0, 0)
-      turquise(c)
+      turquise(c, 28.43)
       drawArcSet(c, 60, 0)
+      turquise(c, 29.43)
       drawArcSet(c, 0, 60)
-      red(c)
+      red(c, 44.13)
       drawArcSet(c, 60, 60)
   }
   
