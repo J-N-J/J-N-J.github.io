@@ -19,6 +19,7 @@
   }
 
   let current_a = 0
+  let ad = -0.02 // change of current_a per step
 
   function drawArcSet(c, offset_i, offset_j) {
       for (let i = offset_i + 100; i < 550; i+=120) {
@@ -55,7 +56,7 @@
   
   function drawScene(c) {
       c.clear()
-      current_a = current_a - 0.02
+      current_a = current_a + ad
       red(c, 44.2)
       drawArcSet(c, 0, 0)
       turquise(c, 28.43)
@@ -71,9 +72,16 @@
   
 </script>
 
-  <p><center><button
-               style="background-color: #9d0303;
-                      border-color: #9d0303;"
-               onclick= "flicker_on = !flicker_on;">flicker</button></center></p>
+  <p><center>
+      <button
+        style="background-color: #9d0303;
+               border-color: #9d0303;"
+        onclick= "flicker_on = !flicker_on;">flicker</button>
+      <input
+        id="ad" type="range"
+        min="1" max="100" value="40"
+        oninput= "ad = (document.getElementById('ad').value - 50) / 200"
+        />
+  </center></p>
 
 </body>
