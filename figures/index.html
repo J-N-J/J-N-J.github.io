@@ -25,16 +25,24 @@
       }
   }
 
+  function red(c) {
+      c.lineWidth = lineWidth * (Math.sin(current_a)+1)
+      c.strokeStyle = "#b52424"
+  }
+  function turquise(c) {
+      c.lineWidth = lineWidth * (2-(Math.sin(current_a)+1))
+      c.strokeStyle = "#123e45"
+  }
+  
   function drawScene(c) {
       c.clear()
       current_a = current_a - 0.02
-      c.lineWidth = lineWidth
-      c.strokeStyle = "#b52424"
+      red(c)
       drawArcSet(c, 0, 0)
-      c.strokeStyle = "#123e45"
+      turquise(c)
       drawArcSet(c, 60, 0)
       drawArcSet(c, 0, 60)
-      c.strokeStyle = "#b52424"
+      red(c)
       drawArcSet(c, 60, 60)
   }
   
