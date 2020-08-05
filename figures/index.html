@@ -28,12 +28,18 @@
       }
   }
 
+  let flicker_on = false;
+
   function flicker(r,g,b, scale, i) {
-      let lum= 1 - ((1 + Math.sin(i)) * 0.5 * scale)
-      function f(x) {
-          return Math.floor(x*lum)
+      if (flicker_on) {
+          let lum= 1 - ((1 + Math.sin(i)) * 0.5 * scale)
+          function f(x) {
+              return Math.floor(x*lum)
+          }
+          return rgb(f(r), f(g), f(b))
+      } else {
+          return rgb(r,g,b)
       }
-      return rgb(f(r), f(g), f(b))
   }
   
   function red(c, flickerspeed) {
