@@ -73,15 +73,33 @@
 </script>
 
   <p><center>
+       <input
+        id="lineWidth" type="range"
+        min="0" max="100" value="2"
+        oninput= "lineWidth = document.getElementById('lineWidth').value"
+        />
       <button
         style="background-color: #9d0303;
                border-color: #9d0303;"
         onclick= "flicker_on = !flicker_on;">flicker</button>
       <input
         id="ad" type="range"
-        min="1" max="100" value="40"
+        min="0" max="100" value="45"
         oninput= "ad = (document.getElementById('ad').value - 50) / 200"
         />
+  </center></p>
+
+  <p><center>
+       
+      <button
+        style="background-color: #9d0303;
+               border-color: #9d0303;"
+        onclick= "
+document.getElementById('lineWidth').value = 2; lineWidth= 2
+flicker_on = false
+document.getElementById('ad').value = 45; ad = (45-50)/200
+">reset</button>
+     
   </center></p>
 
 </body>
