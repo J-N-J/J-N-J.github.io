@@ -10,7 +10,7 @@
 <p><center><canvas style="background-color: #230000;" id="fireworks" width="600" height="600"></canvas></center></p>
 <script>
 
-  let lineWidth = 6
+  let lineWidth = 2
   
   function drawArcPart(c, a, x, y) {
       c.beginPath()
