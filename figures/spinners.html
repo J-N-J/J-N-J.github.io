@@ -10,7 +10,7 @@
 <p><center><canvas style="background-color: #230000;" id="fireworks" width="600" height="600"></canvas></center></p>
 <script>
 
-  let lineWidth = 6
+  let lineWidth = 4
   
   function drawArcPart(c, a, x, y) {
       c.beginPath()
@@ -75,7 +75,7 @@
   <p><center>
        <input
         id="lineWidth" type="range"
-        min="0" max="100" value="6"
+        min="0" max="100" value="4"
         oninput= "lineWidth = document.getElementById('lineWidth').value"
         />
       <button
@@ -95,7 +95,7 @@
         style="background-color: #9d0303;
                border-color: #9d0303;"
         onclick= "
-document.getElementById('lineWidth').value = 6; lineWidth= 6
+document.getElementById('lineWidth').value = 4; lineWidth= 4
 flicker_on = false
 document.getElementById('ad').value = 45; ad = (45-50)/200
 ">reset</button>
