@@ -17,7 +17,7 @@ const rainbowgreen = [[0, 0], [102, 1], [154, 1], [205, 0], [255, 0]]
 
 const rainbowblue = [[0, 0], [154, 0], [205, 1], [205, 1], [255, 1]]
 
-const rainbowbrightness = [[0, 0], [ 
+const rainbowbrightness = [[0, 0], [20, 0.8], [40, 1], [215, 1], [235, 0.8],[255, 0]] 
 
   let lineWidth = 4
   let dt = 0.02
