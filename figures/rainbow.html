@@ -34,7 +34,7 @@ let lineWidth = 0.8
 let rainbowy = 600
 let dt = 0.02
 let t = 0
-
+let intensity = 0.5
   
 function drawArcPart(c, a, x, y, size) {
     c.beginPath()
@@ -51,12 +51,14 @@ function drawArcSet(c) {
         c.strokeStyle = rgb(times255(rainbowred(rpc)),
                             times255(rainbowgreen(rpc)),
                             times255(rainbowblue(rpc)))
-        c.globalAlpha = rainbowbrightness(rpc) / 2
+        c.globalAlpha = rainbowbrightness(rpc) * intensity
         
         drawArcPart(c, t, 300, rainbowy, r)
         r = r - lineWidth
     }
 }
+
+
 
 let flicker_on = false;
 
@@ -89,15 +91,20 @@ an.start()
         min="0" max="550" value="80"
         oninput= "lineWidth = document.getElementById('lineWidth').value / 100"
         />
-      <button
-        style="background-color: #9d0303;
-               border-color: #9d0303;"
-        onclick= "flicker_on = !flicker_on;">flicker</button>
+     
       <input
-        id="dt" type="range"
-        min="0" max="100" value="45"
-        oninput= "dt = (document.getElementById('dt').value - 50) / 200"
-        />
+        id="intensity" type="range"
+        min="0" max="100" value="50"
+        oninput= "intensity = (document.getElementById('intensity').value) / 100"
+         />
+
+      <input
+        id="rainbowy" type="range"
+        min="0" max="600" value="0"
+        oninput= "rainbowy = 600 - (document.getElementById('rainbowy').value)"
+         />
+
+      
   </center></p>
 
   <p><center>
@@ -108,7 +115,9 @@ an.start()
         onclick= "
 document.getElementById('lineWidth').value = 80; lineWidth= 0.8
 flicker_on = false
-document.getElementById('dt').value = 45; dt = (45-50)/200
+document.getElementById('intensity').value = 50; intensity = 0.5
+document.getElementById('rainbowy').value = 0; rainbowy = 600
+
 ">reset</button>
      
   </center></p>
