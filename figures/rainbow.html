@@ -1,92 +1,93 @@
 <head>
   <meta charset="UTF-8" />
-  <script src="CanvasAnimation.js" language="javascript"></script>
+    <script src="CanvasAnimation.js" language="javascript"></script>
+      <script src="pointsInterpolator.js" language="javascript"></script>
 </head>
 <body style="background-color: #200790;">
   <p><center><font id="jnj" size=45
                    style="color: #6f0000;">
         <b> J.N.J.</b></font></center></p>
 
-<p><center><canvas style="background-color: #000790;" id="rainbow" width="600" height="600"></canvas></center></p>
+<p><center><canvas style="
+background-image: url('wert.jpeg');
+background-size: cover;
+" id="rainbow" width="600" height="600"></canvas></center></p>
 <script>
+    
+const rainbowred =
+    pointsInterpolator([[0, 1], [102, 1], [154, 0], [205, 0], [255, 0.65]])
 
-  const rainbowred = [
-      [0, 1], [102, 1], [154, 0], [205, 0], [255, 0.65]]
+const rainbowgreen =
+      pointsInterpolator([[0, 0], [102, 1], [154, 1], [205, 0], [255, 0]])
 
-const rainbowgreen = [[0, 0], [102, 1], [154, 1], [205, 0], [255, 0]]
+const rainbowblue =
+      pointsInterpolator([[0, 0], [154, 0], [205, 1], [205, 1], [255, 1]])
 
-const rainbowblue = [[0, 0], [154, 0], [205, 1], [205, 1], [255, 1]]
+const rainbowbrightness =
+      pointsInterpolator([[0, 0], [20, 0.5], [50, 1], [205, 1], [235, 0.5],[255, 0]])
 
-const rainbowbrightness = [[0, 0], [ 
+function times255(x) {
+    return Math.floor(x*255)
+}
 
-  let lineWidth = 4
-  let dt = 0.02
-  let t = 0
+let lineWidth = 0.8
+let rainbowy = 600
+let dt = 0.02
+let t = 0
+
   
-  
-  function drawArcPart(c, a, x, y, size) {
-      c.beginPath()
-      c.arc(x, y, size, 1 * Math.PI, 2 * Math.PI)
-      c.stroke()
-  }
-  function drawArcSet(c, offset_i, offset_j) {
-  c.strokeStyle = "#ff0000"
-  c.lineWidth = lineWidth
-  let r = 300
-  drawArcPart(c, t, 300, 600, r)
-  r = r - lineWidth
-  c.strokeStyle = rgb(255, 80, 0)
+function drawArcPart(c, a, x, y, size) {
+    c.beginPath()
+    c.arc(x, y, size, 1 * Math.PI, 2 * Math.PI)
+    c.stroke()
+}
 
-  drawArcPart(c, t, 300, 600, r)
-   r = r - lineWidth
-  c.strokeStyle = rgb(230, 160, 0)
+function drawArcSet(c) {
+    c.lineWidth = lineWidth+0.15
+    
+    let r = 300
+    
+    for (let rpc = 0; rpc <= 255; rpc += 5){
+        c.strokeStyle = rgb(times255(rainbowred(rpc)),
+                            times255(rainbowgreen(rpc)),
+                            times255(rainbowblue(rpc)))
+        c.globalAlpha = rainbowbrightness(rpc) / 2
+        
+        drawArcPart(c, t, 300, rainbowy, r)
+        r = r - lineWidth
+    }
+}
 
-  drawArcPart(c, t, 300, 600, r)
-   r = r - lineWidth
-  c.strokeStyle = rgb(160, 230, 20)
+let flicker_on = false;
 
-  drawArcPart(c, t, 300, 600, r)
-   r = r - lineWidth
-  c.strokeStyle = rgb(100, 255, 80)
+function flicker(r,g,b, scale, i) {
+    if (flicker_on) {
+        let lum= 1 - ((1 + Math.sin(i)) * 0.5 * scale)
+        function f(x) {
+            return Math.floor(x*lum)
+        }
+        return rgb(f(r), f(g), f(b))
+    } else {
+        return rgb(r,g,b)
+    }
+}
 
-  drawArcPart(c, t, 300, 600, r)
-   r = r - lineWidth
-  c.strokeStyle = rgb(40, 240, 50)
 
-  drawArcPart(c, t, 300, 600, r)
-   r = r - lineWidth
-  }
-  
-  let flicker_on = false;
+function drawScene(c) {
+    c.clear()
+    drawArcSet(c, 0, 0)
+}
 
-  function flicker(r,g,b, scale, i) {
-      if (flicker_on) {
-          let lum= 1 - ((1 + Math.sin(i)) * 0.5 * scale)
-          function f(x) {
-              return Math.floor(x*lum)
-          }
-          return rgb(f(r), f(g), f(b))
-      } else {
-          return rgb(r,g,b)
-      }
-  }
-  
-
-  function drawScene(c) {
-      c.clear()
-      drawArcSet(c, 0, 0)
-  }
-  
-  let an = new CanvasAnimation("rainbow", drawScene)
-  an.start()
+let an = new CanvasAnimation("rainbow", drawScene)
+an.start()
   
 </script>
 
   <p><center>
        <input
         id="lineWidth" type="range"
-        min="0" max="100" value="4"
-        oninput= "lineWidth = document.getElementById('lineWidth').value"
+        min="0" max="550" value="80"
+        oninput= "lineWidth = document.getElementById('lineWidth').value / 100"
         />
       <button
         style="background-color: #9d0303;
@@ -105,7 +106,7 @@ const rainbowbrightness = [[0, 0], [
         style="background-color: #9d0303;
                border-color: #9d0303;"
         onclick= "
-document.getElementById('lineWidth').value = 4; lineWidth= 4
+document.getElementById('lineWidth').value = 80; lineWidth= 0.8
 flicker_on = false
 document.getElementById('dt').value = 45; dt = (45-50)/200
 ">reset</button>
